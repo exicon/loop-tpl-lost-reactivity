@@ -1,0 +1,18 @@
+(page "index.html")
+
+(defc x [1])
+
+(html
+  (head
+    (link :href "app.css" :rel "stylesheet"))
+  (body
+    (h1 "Hello, loop-tpl-example!")
+    (p "Clicking \"number\" button adds an additonal button to the end of the list." (br)
+       "After clicking reset, the buttons that were previously created lose reactivity when recreated.")
+    (div
+      (button :click #(reset! x [1])
+              "Reset")
+      (loop-tpl :bindings [i x]
+                (button
+                  :click #(swap! x conj (inc @i))
+                  i)))))
